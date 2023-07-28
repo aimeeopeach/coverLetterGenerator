@@ -4,7 +4,7 @@ import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png'
 import { useAuth } from 'src/auth'
 
 const LinkedInButton = () => {
-  const { logIn, isAuthenticated, currentUser, getToken } = useAuth()
+  const { getToken, isAuthenticated, currentUser } = useAuth()
 
   if (isAuthenticated) {
     fetch('https://api.linkedin.com/v2/me', {
@@ -31,20 +31,14 @@ const LinkedInButton = () => {
 
   return (
     <>
-      {isAuthenticated && <Text>Welcome {currentUser.email}</Text>}
-      {!isAuthenticated && (
-        <Image
-          onClick={() => {
-            logIn({
-              authMethod: 'oauth',
-              provider: 'linkedin',
-            })
-          }}
-          src={linkedin}
-          alt="Sign in with Linked In"
-          style={{ maxWidth: '180px', cursor: 'pointer' }}
-        />
-      )}
+      <Image
+        onClick={() => {
+          getToken()
+        }}
+        src={linkedin}
+        alt="Sign in with Linked In"
+        style={{ maxWidth: '180px', cursor: 'pointer' }}
+      />
     </>
   )
 }

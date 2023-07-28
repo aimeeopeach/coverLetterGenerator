@@ -7006,6 +7006,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/auth-custom-setup@npm:5.4.2":
+  version: 5.4.2
+  resolution: "@redwoodjs/auth-custom-setup@npm:5.4.2"
+  dependencies:
+    "@babel/runtime-corejs3": 7.22.5
+    "@redwoodjs/cli-helpers": 5.4.2
+    core-js: 3.31.0
+  checksum: 7de55e349dfaed13819f4232cc0bf5e75c002cf2f4780cf44daaabf97653af5a199db72679662276fe97fd5db78642f8b33ed4d4ad5dda0e8dd14b04aeefbbf0
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/auth-dbauth-api@npm:5.4.2":
   version: 5.4.2
   resolution: "@redwoodjs/auth-dbauth-api@npm:5.4.2"
@@ -24386,6 +24397,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@redwoodjs/auth-custom-setup": 5.4.2
     "@redwoodjs/auth-dbauth-setup": 5.4.2
     "@redwoodjs/auth-supabase-setup": 5.4.2
     "@redwoodjs/core": 5.4.2
@@ -27512,6 +27524,7 @@ __metadata:
     "@chakra-ui/react": ^2
     "@emotion/react": ^11
     "@emotion/styled": ^11
+    "@redwoodjs/auth": 5.4.2
     "@redwoodjs/auth-dbauth-web": 5.4.2
     "@redwoodjs/auth-supabase-web": 5.4.2
     "@redwoodjs/forms": 5.4.2

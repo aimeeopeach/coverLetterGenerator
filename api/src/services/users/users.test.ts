@@ -22,6 +22,30 @@ describe('users', () => {
     expect(result).toEqual(scenario.user.one)
   })
 
+  scenario('creates a user', async () => {
+    const result = await createUser({
+      input: {
+        email: 'String1824083',
+        token: 'String',
+        tokenExpired: '2023-07-28T19:23:05.223Z',
+      },
+    })
+
+    expect(result.email).toEqual('String1824083')
+    expect(result.token).toEqual('String')
+    expect(result.tokenExpired).toEqual(new Date('2023-07-28T19:23:05.223Z'))
+  })
+
+  scenario('updates a user', async (scenario: StandardScenario) => {
+    const original = (await user({ id: scenario.user.one.id })) as User
+    const result = await updateUser({
+      id: original.id,
+      input: { email: 'String10797732' },
+    })
+
+    expect(result.email).toEqual('String10797732')
+  })
+
   scenario('deletes a user', async (scenario: StandardScenario) => {
     const original = (await deleteUser({ id: scenario.user.one.id })) as User
     const result = await user({ id: original.id })
