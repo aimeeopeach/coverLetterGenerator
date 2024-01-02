@@ -12,6 +12,16 @@ export const user: QueryResolvers['user'] = ({ id }) => {
   })
 }
 
+export const findOrCreateUserByEmail = ({ input }) => {
+  return db.user.upsert({
+    where: {
+      email: input.email,
+    },
+    update: { ...input },
+    create: { ...input },
+  })
+}
+
 export const createUser: MutationResolvers['createUser'] = ({ input }) => {
   return db.user.create({
     data: input,

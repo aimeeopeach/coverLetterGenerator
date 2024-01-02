@@ -12,8 +12,31 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 // TODO: Please remove the following example:
 model User {
+  id      Int    @id @default(autoincrement())
+  email   String @unique
+  token   String
+  expired Int
+}
+
+model Completion {
   id           Int      @id @default(autoincrement())
-  email        String   @unique
-  token        String
-  tokenExpired DateTime
+  resume       String
+  aboutCompany String
+  aboutJob     String
+  choices      Choice[]
+}
+
+model Choice {
+  id           Int         @id @default(autoincrement())
+  Completion   Completion? @relation(fields: [completionId], references: [id])
+  completionId Int?
+  Delta        Delta?      @relation(fields: [deltaId], references: [id])
+  deltaId      Int?
+}
+
+model Delta {
+  id      Int      @id @default(autoincrement())
+  content String
+  role    String
+  Choice  Choice[]
 }

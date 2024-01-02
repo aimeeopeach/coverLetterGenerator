@@ -15,6 +15,10 @@ export const handler = createGraphQLHandler({
   loggerConfig: { logger, options: {} },
   directives,
   sdls,
+  cors: {
+    origin: '*',
+    credentials: true,
+  },
   services,
   onException: () => {
     // Disconnect from your database with an unhandled exception.

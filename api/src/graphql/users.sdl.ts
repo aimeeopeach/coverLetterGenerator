@@ -3,7 +3,7 @@ export const schema = gql`
     id: Int!
     email: String!
     token: String!
-    tokenExpired: DateTime!
+    expired: Int!
   }
 
   type Query {
@@ -14,13 +14,13 @@ export const schema = gql`
   input CreateUserInput {
     email: String!
     token: String!
-    tokenExpired: DateTime!
+    expired: Int!
   }
 
   input UpdateUserInput {
     email: String
     token: String
-    tokenExpired: DateTime
+    expired: Int
   }
 
   type Mutation {

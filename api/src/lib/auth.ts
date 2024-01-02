@@ -1,48 +1,34 @@
-import { parseJWT, Decoded } from '@redwoodjs/api'
+import type { Decoded } from '@redwoodjs/api'
 import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
-/**
- * Represents the user attributes returned by the decoding the
- * Authentication provider's JWT together with an optional list of roles.
- */
-type RedwoodUser = Record<string, unknown> & { roles?: string[] }
+import { db } from './db'
 
 /**
- * getCurrentUser returns the user information together with
- * an optional collection of roles used by requireAuth() to check
- * if the user is authenticated or has role-based access
+ * The session object sent in as the first argument to getCurrentUser() will
+ * have a single key `id` containing the unique ID of the logged in user
+ * (whatever field you set as `authFields.id` in your auth function config).
+ * You'll need to update the call to `db` below if you use a different model
+ * name or unique field name, for example:
+ *
+ *   return await db.profile.findUnique({ where: { email: session.id } })
+ *                   ───┬───                       ──┬──
+ *      model accessor ─┘      unique id field name ─┘
  *
  * !! BEWARE !! Anything returned from this function will be available to the
  * client--it becomes the content of `currentUser` on the web side (as well as
  * `context.currentUser` on the api side). You should carefully add additional
- * fields to the return object only once you've decided they are safe to be seen
- * if someone were to open the Web Inspector in their browser.
- *
- * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
- *
- * @param decoded - The decoded access token containing user info and JWT
- *   claims like `sub`. Note, this could be null.
- * @param { token, SupportedAuthTypes type } - The access token itself as well
- *   as the auth provider type
- * @param { APIGatewayEvent event, Context context } - An optional object which
- *   contains information from the invoker such as headers and cookies, and the
- *   context information about the invocation such as IP Address
- * @returns RedwoodUser
+ * fields to the `select` object below once you've decided they are safe to be
+ * seen if someone were to open the Web Inspector in their browser.
  */
-export const getCurrentUser = async (
-  decoded: Decoded
-): Promise<RedwoodUser | null> => {
-  if (!decoded) {
-    return null
+export const getCurrentUser = async (session: Decoded) => {
+  if (!session || typeof session.id !== 'number') {
+    throw new Error('Invalid session')
   }
 
-  const { roles } = parseJWT({ decoded })
-
-  if (roles) {
-    return { ...decoded, roles }
-  }
-
-  return { ...decoded }
+  return await db.user.findUnique({
+    where: { id: session.id },
+    select: { id: true, email: true },
+  })
 }
 
 /**
@@ -106,12 +92,12 @@ export const hasRole = (roles: AllowedRoles): boolean => {
  * whether or not they are assigned a role, and optionally raise an
  * error if they're not.
  *
- * @param roles?: {@link AllowedRoles} - When checking role membership, these roles grant access.
+ * @param roles: {@link AllowedRoles} - When checking role membership, these roles grant access.
  *
  * @returns - If the currentUser is authenticated (and assigned one of the given roles)
  *
  * @throws {@link AuthenticationError} - If the currentUser is not authenticated
- * @throws {@link ForbiddenError} - If the currentUser is not allowed due to role permissions
+ * @throws {@link ForbiddenError} If the currentUser is not allowed due to role permissions
  *
  * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
  */
