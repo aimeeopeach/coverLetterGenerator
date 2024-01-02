@@ -70,24 +70,27 @@ const HomePage = () => {
       })
     }
 
-    fetch('http://localhost:8910/.redwood/functions/graphql', {
-      method: 'POST',
-      headers: {
-        Accept: 'multipart/mixed',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query:
-          'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) @stream{ id choices{ delta{ content role } } } } }',
-        variables: {
-          input: {
-            resume: resume,
-            aboutJob: aboutJob,
-            aboutCompany: aboutCompany,
-          },
+    fetch(
+      'https://warm-semolina-103bd5.netlify.app/.netlify/functions/graphql',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'multipart/mixed',
+          'Content-Type': 'application/json',
         },
-      }),
-    }).then(async (res) => {
+        body: JSON.stringify({
+          query:
+            'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) @stream{ id choices{ delta{ content role } } } } }',
+          variables: {
+            input: {
+              resume: resume,
+              aboutJob: aboutJob,
+              aboutCompany: aboutCompany,
+            },
+          },
+        }),
+      }
+    ).then(async (res) => {
       const reader = res.body.getReader()
       const chunks = readChunks(reader)
       let result = ''

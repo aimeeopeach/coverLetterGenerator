@@ -1,7 +1,4 @@
 import OpenAI from 'openai'
-import { ChatCompletionChunk } from 'openai/resources'
-
-import { Repeater } from '@redwoodjs/realtime'
 
 const openai = new OpenAI({
   apiKey: process.env.CHATGPT_KEY,
