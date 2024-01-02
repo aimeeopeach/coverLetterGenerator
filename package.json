@@ -7,10 +7,10 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/auth-custom-setup": "6.5.0",
-    "@redwoodjs/auth-dbauth-setup": "6.5.0",
-    "@redwoodjs/auth-supabase-setup": "6.5.0",
-    "@redwoodjs/core": "6.5.0",
+    "@redwoodjs/auth-custom-setup": "6.6.1",
+    "@redwoodjs/auth-dbauth-setup": "6.6.1",
+    "@redwoodjs/auth-supabase-setup": "6.6.1",
+    "@redwoodjs/core": "6.6.1",
     "vite-plugin-top-level-await": "^1.4.0"
   },
   "eslintConfig": {
