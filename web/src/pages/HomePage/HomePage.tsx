@@ -78,7 +78,7 @@ const HomePage = () => {
       },
       body: JSON.stringify({
         query:
-          'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) @stream{ id choices{ delta{ content role } } } } }',
+          'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) { id choices{ delta{ content role } } } } }',
         variables: {
           input: {
             resume: resume,
