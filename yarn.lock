@@ -3231,6 +3231,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild-plugins/node-globals-polyfill@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@esbuild-plugins/node-globals-polyfill@npm:0.2.3"
+  peerDependencies:
+    esbuild: "*"
+  checksum: da3591b3943076a8d4a78320c176f37e5a5802512e2c3a792d4dfe495c051e097668dc56513160147b43e86987078559490164905ef41d1326ac0a9e7a6498ac
+  languageName: node
+  linkType: hard
+
 "@esbuild/android-arm64@npm:0.18.19":
   version: 0.18.19
   resolution: "@esbuild/android-arm64@npm:0.18.19"
@@ -8329,7 +8338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"api@workspace:api":
+"api@workspace:^, api@workspace:api":
   version: 0.0.0-use.local
   resolution: "api@workspace:api"
   dependencies:
@@ -22619,6 +22628,7 @@ __metadata:
     "@chakra-ui/react": ^2
     "@emotion/react": ^11
     "@emotion/styled": ^11
+    "@esbuild-plugins/node-globals-polyfill": ^0.2.3
     "@redwoodjs/auth": 6.6.1
     "@redwoodjs/auth-dbauth-web": 6.6.1
     "@redwoodjs/auth-supabase-web": 6.6.1
@@ -22628,6 +22638,8 @@ __metadata:
     "@redwoodjs/web": 6.6.1
     "@supabase/supabase-js": ^2
     "@xmldom/xmldom": ^0.8.10
+    api: "workspace:^"
+    buffer: ^6.0.3
     framer-motion: ^9
     js-cookie: ^3.0.5
     openai: ^4.20.1

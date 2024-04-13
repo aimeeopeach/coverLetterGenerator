@@ -3,21 +3,19 @@ import { useState } from 'react'
 import { CheckIcon } from '@chakra-ui/icons'
 import {
   Box,
+  Button,
   Grid,
   GridItem,
+  HStack,
   Heading,
   Textarea,
-  HStack,
-  Button,
-  useToast,
-  Container,
+  useToast
 } from '@chakra-ui/react'
 import { ChatCompletionChunk } from 'openai/resources'
 import { useCookies } from 'react-cookie'
 
 import { MetaTags } from '@redwoodjs/web'
 
-import LinkedinCell from 'src/components/LinkedinCell'
 import OPeachHeader from 'src/components/OPeachHeader'
 import Step1 from 'src/components/Step1'
 import Step2 from 'src/components/Step2'
@@ -78,7 +76,7 @@ const HomePage = () => {
       },
       body: JSON.stringify({
         query:
-          'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) { id choices{ delta{ content role } } } } }',
+          'query completion($input: CreateCompletionInput!){ ... on Query{ completion(input: $input) @stream{ id choices{ delta{ content role } } } } }',
         variables: {
           input: {
             resume: resume,

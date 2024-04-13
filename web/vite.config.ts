@@ -3,7 +3,9 @@ import dns from 'dns'
 import { defineConfig, UserConfig } from 'vite'
 import topLevelAwait from 'vite-plugin-top-level-await'
 
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import redwood from '@redwoodjs/vite'
+
 
 // See: https://vitejs.dev/config/server-options.html#server-host
 // So that Vite will load on local instead of 127.0.0.1
@@ -26,6 +28,20 @@ const viteConfig: UserConfig = {
       promiseImportName: (i) => `__tla_${i}`,
     }),
   ],
+  optimizeDeps: {
+    esbuildOptions: {
+        // Node.js global to browser globalThis
+        define: {
+            global: 'globalThis'
+        },
+        // Enable esbuild polyfill plugins
+        plugins: [
+            NodeGlobalsPolyfillPlugin({
+                buffer: true
+            })
+        ]
+    }
+  }
 }
 
 export default defineConfig(viteConfig)
